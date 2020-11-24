@@ -43,7 +43,8 @@
 	$("#rangepicker").daterangepicker({
 		startDate: moment("<%= l @start_date, format: '%Y-%m-%d' %>"),
 		endDate: moment("<%= l @end_date, format: '%Y-%m-%d' %>"),
-		ranges: ranges
+		ranges: ranges,
+		alwaysShowCalendars: true
 	}, function(start, end, label) {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     $("#start").val(start.format('YYYY-MM-DD'));
