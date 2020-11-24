@@ -1,7 +1,9 @@
+<input type="text" id="rangepicker">
+
 <%= column_chart @column_data, stacked: true, prefix: "$",
 	thousands: "," %>
 
-<%= pie_chart Expense.group(:type).sum(:amount) %>
+<%= pie_chart @pie_chart %>
 
 
 <table>
@@ -22,3 +24,21 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= form_tag root_path, method: :get do %>
+	<%= hidden_field_tag :start %>
+	<%= hidden_field_tag :end %>
+<% end %>
+
+<script>
+	$("#rangepicker").daterangepicker({
+		startDate: moment("<%= l @start_date, format: '%Y-%m-%d' %>"),
+		endDate: moment("<%= l @end_date, format: '%Y-%m-%d' %>")
+	}, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    $("#start").val(start.format('YYYY-MM-DD'));
+    $("#end").val(end.format('YYYY-MM-DD'));
+
+    $("form").submit();
+});
+</script>
